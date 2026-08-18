@@ -4,7 +4,7 @@ setlocal EnableExtensions
 rem ============================================================
 rem  DeepSeek Harness one-command installer
 rem
-rem  1) Downloads the launcher and icon into %USERPROFILE%\DeepSeekHarness
+rem  1) Downloads the launcher and the custom icon into %USERPROFILE%\DeepSeekHarness
 rem  2) Deploys @deepseek-ai/dsh there with npm (local, fast startup)
 rem  3) Creates the "DeepSeek Harness" desktop shortcut
 rem
@@ -40,7 +40,7 @@ if not exist "%DIR%" mkdir "%DIR%"
 echo [1/3] Downloading launcher and icon...
 call :download "%BASE%/Start-DeepSeek-Harness.cmd" "%DIR%\Start-DeepSeek-Harness.cmd"
 if errorlevel 1 goto :dlfail
-call :download "%BASE%/DeepSeek-Harness.ico" "%DIR%\DeepSeek-Harness.ico"
+call :download "%BASE%/DeepSeek-Harness-custom.ico" "%DIR%\DeepSeek-Harness-custom.ico"
 if errorlevel 1 goto :dlfail
 
 rem -- 2) Deploy @deepseek-ai/dsh locally. --
@@ -56,10 +56,9 @@ if errorlevel 1 (
   exit /b 1
 )
 
-rem -- 3) Desktop shortcut (keep a custom icon if present). --
+rem -- 3) Desktop shortcut with the custom icon. --
 echo [3/3] Creating desktop shortcut...
-set "ICON=%DIR%\DeepSeek-Harness.ico"
-if exist "%DIR%\DeepSeek-Harness-custom.ico" set "ICON=%DIR%\DeepSeek-Harness-custom.ico"
+set "ICON=%DIR%\DeepSeek-Harness-custom.ico"
 powershell -NoProfile -ExecutionPolicy Bypass -Command "$s=(New-Object -ComObject WScript.Shell).CreateShortcut([Environment]::GetFolderPath('Desktop')+'\DeepSeek Harness.lnk'); $s.TargetPath='%DIR%\Start-DeepSeek-Harness.cmd'; $s.WorkingDirectory='%DIR%'; $s.IconLocation='%ICON%,0'; $s.Description='DeepSeek Harness'; $s.Save()"
 if errorlevel 1 (
   echo [error] Failed to create the desktop shortcut.

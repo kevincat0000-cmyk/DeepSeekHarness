@@ -7,13 +7,11 @@
 桌面快捷方式自带定制图标，安装完成后的桌面就是它：
 
 <p align="center">
-  <img src="DeepSeek-Harness-custom.png" width="128" alt="自定义图标">
-  <img src="DeepSeek-Harness.png" width="128" alt="默认图标">
+  <img src="DeepSeek-Harness-custom.png" width="160" alt="自定义图标">
 </p>
 
-- **左：自定义图标**（`DeepSeek-Harness-custom.ico`）——快捷方式会优先使用它；任何喜欢的图片都能一键换成同款圆角图标。
-- **右：默认官方蓝图标**（`DeepSeek-Harness.ico`）——全新安装时的默认样式，取自官方 favicon。
-- 两个 .ico 都内置 16–256px 七个尺寸，任意缩放都不模糊；替换方法见文末「生成图标」。
+- 图标文件：`DeepSeek-Harness-custom.ico`，内置 16–256px 七个尺寸，任意缩放都不模糊。
+- 想换成任何自己喜欢的图片？一条命令就能生成同款圆角图标，见文末「生成图标」。
 
 ## 一键安装（推荐）
 
@@ -31,7 +29,7 @@ curl -fsSL "https://raw.githubusercontent.com/kevincat0000-cmyk/DeepSeekHarness/
 
 - 前置条件：已安装 [Node.js](https://nodejs.org/)（含 npm）。
 - 更新方法：重新运行上面同一条命令即可升级到最新版。
-- 快捷方式图标默认使用蓝色图标；如果目录里已有 `DeepSeek-Harness-custom.ico`，则优先使用它。
+- 快捷方式使用专属自定义图标 `DeepSeek-Harness-custom.ico`。
 - 如果系统里没有 curl，可用 PowerShell 代替：
 
 ```powershell
@@ -44,10 +42,8 @@ Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/kevincat00
 | --- | --- |
 | `install.cmd` | 一键安装脚本：下载启动器与图标、npm 本地部署 `@deepseek-ai/dsh`、创建桌面快捷方式 |
 | `Start-DeepSeek-Harness.cmd` | 启动脚本：检测 3080 端口是否已在运行，未运行则后台启动 `dsh web`，等待就绪后打开浏览器 |
-| `DeepSeek-Harness.ico` | 默认蓝色图标（由官方 favicon 生成） |
-| `DeepSeek-Harness-custom.ico` | 自定义图标（从自选图片裁剪生成） |
-| `DeepSeek-Harness.png` / `DeepSeek-Harness-custom.png` | 上面两个图标的 256px 预览图（README 展示用） |
-| `make-icon.cjs` | 从官方 favicon.svg 生成默认 .ico 的脚本 |
+| `DeepSeek-Harness-custom.ico` | 专属自定义图标（桌面快捷方式图标，从自选图片裁剪生成） |
+| `DeepSeek-Harness-custom.png` | 上面图标的 256px 预览图（README 展示用） |
 | `make-icon-custom.cjs` | 把任意图片裁剪为圆角多尺寸 .ico 的脚本 |
 
 ## 启动脚本的工作方式
@@ -60,8 +56,10 @@ Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/kevincat00
 
 ## 生成图标
 
+把任意图片换成圆角多尺寸 .ico：修改 `make-icon-custom.cjs` 开头的 `SRC` 为你图片的路径，然后：
+
 ```cmd
-node make-icon.cjs
+node make-icon-custom.cjs
 ```
 
-两个脚本都使用 [sharp](https://sharp.pixelplumbing.com/)：请先 `npm install sharp`，或把脚本开头的 `require` 路径指向你本机的 sharp。
+脚本使用 [sharp](https://sharp.pixelplumbing.com/)：请先 `npm install sharp`，或把脚本开头的 `require` 路径指向你本机的 sharp。
