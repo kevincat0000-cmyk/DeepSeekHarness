@@ -2,6 +2,19 @@
 
 一键启动 DeepSeek Harness Web 界面（http://127.0.0.1:3080/ ）并自动打开浏览器的 Windows 桌面快捷方式工程。
 
+## ✨ 特色：专属界面图标
+
+桌面快捷方式自带定制图标，安装完成后的桌面就是它：
+
+<p align="center">
+  <img src="DeepSeek-Harness-custom.png" width="128" alt="自定义图标">
+  <img src="DeepSeek-Harness.png" width="128" alt="默认图标">
+</p>
+
+- **左：自定义图标**（`DeepSeek-Harness-custom.ico`）——快捷方式会优先使用它；任何喜欢的图片都能一键换成同款圆角图标。
+- **右：默认官方蓝图标**（`DeepSeek-Harness.ico`）——全新安装时的默认样式，取自官方 favicon。
+- 两个 .ico 都内置 16–256px 七个尺寸，任意缩放都不模糊；替换方法见文末「生成图标」。
+
 ## 一键安装（推荐）
 
 在 **cmd** 终端粘贴下面这一条命令，即可自动完成全部安装：
@@ -33,6 +46,7 @@ Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/kevincat00
 | `Start-DeepSeek-Harness.cmd` | 启动脚本：检测 3080 端口是否已在运行，未运行则后台启动 `dsh web`，等待就绪后打开浏览器 |
 | `DeepSeek-Harness.ico` | 默认蓝色图标（由官方 favicon 生成） |
 | `DeepSeek-Harness-custom.ico` | 自定义图标（从自选图片裁剪生成） |
+| `DeepSeek-Harness.png` / `DeepSeek-Harness-custom.png` | 上面两个图标的 256px 预览图（README 展示用） |
 | `make-icon.cjs` | 从官方 favicon.svg 生成默认 .ico 的脚本 |
 | `make-icon-custom.cjs` | 把任意图片裁剪为圆角多尺寸 .ico 的脚本 |
 
