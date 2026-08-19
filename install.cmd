@@ -45,7 +45,9 @@ rem -- 1) Download launcher + icon. --
 if not exist "%DIR%" (
   mkdir "%DIR%" >nul 2>&1
   if not exist "%DIR%" (
-    echo [error] Could not create "%DIR%". Check that the drive exists.
+    echo [error] Could not create "%DIR%".
+    echo         Check the path, the drive and the folder permissions.
+    echo         Tip: use an existing folder, e.g. D:\Apps\DeepSeekHarness
     pause
     exit /b 1
   )
