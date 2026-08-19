@@ -96,8 +96,14 @@ rem %1 = URL, %2 = output file
 where curl.exe >nul 2>&1
 if errorlevel 1 goto :dl_ps
 curl -fsSL "%~1" -o "%~2"
-exit /b %errorlevel%
+goto :dl_check
 
 :dl_ps
 powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Invoke-WebRequest -UseBasicParsing '%~1' -OutFile '%~2'"
-exit /b %errorlevel%
+
+:dl_check
+rem Fail loudly when the downloaded file is missing or empty.
+if errorlevel 1 exit /b 1
+if not exist "%~2" exit /b 1
+if %~z2 equ 0 exit /b 1
+exit /b 0
