@@ -17,7 +17,7 @@
 
 在 **cmd** 终端粘贴下面这一条命令，即可自动完成全部安装：
 
-1. 把启动器和图标下载到 `%USERPROFILE%\DeepSeekHarness`
+1. 把启动器和图标下载到目标目录（默认 `%USERPROFILE%\DeepSeekHarness`，可指定盘符）
 2. 用 npm 把 `@deepseek-ai/dsh` 本地部署到该目录
 3. 在桌面创建 **DeepSeek Harness** 快捷方式
 
@@ -25,10 +25,18 @@
 curl -fsSL "https://raw.githubusercontent.com/kevincat0000-cmyk/DeepSeekHarness/main/install.cmd" -o "%TEMP%\dsh-install.cmd" && call "%TEMP%\dsh-install.cmd"
 ```
 
+**指定安装盘/目录**（可选）：在命令末尾加上目标文件夹即可，例如安装到 D 盘：
+
+```cmd
+curl -fsSL "https://raw.githubusercontent.com/kevincat0000-cmyk/DeepSeekHarness/main/install.cmd" -o "%TEMP%\dsh-install.cmd" && call "%TEMP%\dsh-install.cmd" D:\DeepSeekHarness
+```
+
+不写目录则默认安装到 `%USERPROFILE%\DeepSeekHarness`（C 盘用户目录）。目标盘符必须存在；启动脚本按自身所在目录定位 dsh，装到任何盘都能正常启动。
+
 安装完成后，双击桌面上的 **DeepSeek Harness** 快捷方式即可启动。
 
 - 前置条件：已安装 [Node.js](https://nodejs.org/)（含 npm）。
-- 更新方法：重新运行上面同一条命令即可升级到最新版。
+- 更新方法：重新运行上面同一条命令（带相同的目录参数）即可升级到最新版。
 - 快捷方式使用专属自定义图标 `DeepSeek-Harness-custom.ico`。
 - 如果系统里没有 curl，可用 PowerShell 代替：
 

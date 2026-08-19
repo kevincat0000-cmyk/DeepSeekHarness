@@ -4,16 +4,22 @@ setlocal EnableExtensions
 rem ============================================================
 rem  DeepSeek Harness one-command installer
 rem
-rem  1) Downloads the launcher and the custom icon into %USERPROFILE%\DeepSeekHarness
+rem  1) Downloads the launcher and the custom icon into the target directory
 rem  2) Deploys @deepseek-ai/dsh there with npm (local, fast startup)
 rem  3) Creates the "DeepSeek Harness" desktop shortcut
 rem
 rem  Usage (single line, in cmd.exe):
 rem    curl -fsSL "https://raw.githubusercontent.com/kevincat0000-cmyk/DeepSeekHarness/main/install.cmd" -o "%TEMP%\dsh-install.cmd" && call "%TEMP%\dsh-install.cmd"
+rem  Optional: append a target directory, e.g.:
+rem    ... && call "%TEMP%\dsh-install.cmd" D:\DeepSeekHarness
 rem ============================================================
 
 set "BASE=https://raw.githubusercontent.com/kevincat0000-cmyk/DeepSeekHarness/main"
+
+rem -- Optional install directory (defaults to %USERPROFILE%\DeepSeekHarness). --
 set "DIR=%USERPROFILE%\DeepSeekHarness"
+if not "%~1"=="" set "DIR=%~1"
+for %%D in ("%DIR%.") do set "DIR=%%~fD"
 
 rem -- 0) Node.js and npm are required. --
 set "NODE="
@@ -36,7 +42,14 @@ if not defined NPM if not exist "%NODE:~0,-8%node_modules\npm\bin\npm-cli.js" (
 )
 
 rem -- 1) Download launcher + icon. --
-if not exist "%DIR%" mkdir "%DIR%"
+if not exist "%DIR%" (
+  mkdir "%DIR%" >nul 2>&1
+  if not exist "%DIR%" (
+    echo [error] Could not create "%DIR%". Check that the drive exists.
+    pause
+    exit /b 1
+  )
+)
 echo [1/3] Downloading launcher and icon...
 call :download "%BASE%/Start-DeepSeek-Harness.cmd" "%DIR%\Start-DeepSeek-Harness.cmd"
 if errorlevel 1 goto :dlfail
